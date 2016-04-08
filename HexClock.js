@@ -1,15 +1,11 @@
 if (Meteor.isClient) {
   Meteor.startup(function() {
     setInterval(function() {
-      Meteor.call("getServerHours", function(error, result) {
-        Session.set("hours", result);
-      });
-      Meteor.call("getServerMinutes", function(error, result) {
-        Session.set("minutes", result);
-      });
-      Meteor.call("getServerSeconds", function(error, result) {
-        Session.set("seconds", result);
-      });
+
+      Session.set("hours", (new Date).getHours());
+      Session.set("minutes", (new Date).getMinutes());
+      Session.set("seconds", (new Date).getSeconds());
+
     }, 1000);
   });
 
@@ -35,21 +31,6 @@ if (Meteor.isClient) {
   });
 
 }
-
-Meteor.methods({
-  getServerHours: function() {
-    var hours = (new Date).getHours();
-    return hours;
-  },
-  getServerMinutes: function() {
-    var minutes = (new Date).getMinutes();
-    return minutes;
-  },
-  getServerSeconds: function() {
-    var seconds = (new Date).getSeconds();
-    return seconds;
-  }
-});
 
 if (Meteor.isServer) {
 }
